@@ -148,6 +148,9 @@
 #                                           Windows and ['systemd.timer'] on other
 #                                           systems.
 #
+# $manage_auth::                      Manage auth.conf or leave it alone
+#                                     type:boolean
+#
 # $auth_template::                          Use a custom template for the auth
 #                                           configuration.
 #
@@ -588,6 +591,7 @@ class puppet (
   Optional[String] $agent_restart_command = $puppet::params::agent_restart_command,
   String $classfile = $puppet::params::classfile,
   String $hiera_config = $puppet::params::hiera_config,
+  Boolean $manage_auth = $puppet::params::manage_auth,
   String $auth_template = $puppet::params::auth_template,
   Boolean $allow_any_crl_auth = $puppet::params::allow_any_crl_auth,
   Array[String] $auth_allowed = $puppet::params::auth_allowed,

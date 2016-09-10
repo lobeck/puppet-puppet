@@ -17,6 +17,7 @@ class puppet::config(
   $use_srv_records     = $puppet::use_srv_records,
   $additional_settings = $puppet::additional_settings,
   $client_certname     = $puppet::client_certname,
+  $manage_auth         = $::puppet::manage_auth,
 ) {
   puppet::config::main{
     'vardir': value => $puppet::vardir;
@@ -95,7 +96,10 @@ class puppet::config(
       }
     }
   }
-  ~> file { "${puppet_dir}/auth.conf":
-    content => template($auth_template),
+  if $manage_auth {
+    file { "${puppet_dir}/auth.conf":
+      content   => template($auth_template),
+      subscribe => Concat["${puppet_dir}/puppet.conf"],
+    }
   }
 }
